@@ -18,6 +18,8 @@ Terceiro projeto de uma sequência de estudos em API REST com Spring Boot, const
 | **H2 Database** | Banco em memória |
 | **Bean Validation** | Validação de dados |
 | **Lombok** | Redução de boilerplate |
+| **JUnit 5** | Testes unitários |
+| **Mockito** | Simulação de dependências nos testes |
 | **Maven** | Gerenciamento de dependências |
 
 ---
@@ -125,6 +127,26 @@ Validações de **formato** são declarativas na entidade e retornam `400 Bad Re
 ```
 
 Validações de **regra de negócio** (estoque zerado, por exemplo) são verificadas no Service e retornam `400` com a mensagem correspondente.
+
+---
+
+## 🧪 Testes
+
+Testes unitários da camada de Service com **JUnit 5** e **Mockito**. O repositório é substituído por um mock, então os testes verificam as regras de negócio sem precisar de banco de dados.
+
+Para rodar:
+
+    ./mvnw test
+
+| Teste | O que verifica |
+|---|---|
+| `deveAlugarBicicletaQuandoTemEstoque` | O aluguel diminui o estoque em 1 |
+| `naoDeveAlugarBicicletaSemEstoque` | Lança exceção e **não** grava no banco |
+| `naoDeveAlugarBicicletaInexistente` | Lança exceção quando o id não existe |
+| `deveDevolverBicicletaAumentandoEstoque` | A devolução aumenta o estoque em 1 |
+| `naoDeveDevolverBicicletaInexistente` | Lança exceção quando o id não existe |
+| `deveChamarRepositoryUmaUnicaVezAoAlugar` | `findById` e `save` são chamados exatamente uma vez |
+| `deveDiminuirEstoqueEmUmAoAlugar` | Teste parametrizado com estoques 1, 2, 10 e 50 |
 
 ---
 

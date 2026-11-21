@@ -12,5 +12,4 @@ public interface BicicletaRepository extends JpaRepository<Bicicleta, Long> {
 
     List<Bicicleta> findByTipo(TipoBicicleta tipo);
 
-    String modelo(String modelo);
 }
